@@ -20,11 +20,12 @@
                                     <form class="d-flex flex-row align-items-center" method="post">
                                         <input type="text" id="name" name="name"
                                                class="form-control form-control-lg my-input"
-                                               placeholder="Add new...">
+                                               placeholder="Cliente">
                                         <input type="text" id="cantidad" name="cantidad"
                                                class="form-control form-control-lg" placeholder="cantidad ...">
                                         <div>
-                                            <button name="agregar" data-bs-toggle="modal" data-bs-target="#exampleModal" type="submit" class="btn btn-primary">
+                                            <button name="agregar" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                                                    type="submit" class="btn btn-primary">
                                                 <i class="bi bi-pencil-square"></i>
                                                 Agregar
                                             </button>
@@ -59,8 +60,9 @@
                             <li class="list-group-item px-3 py-1 d-flex align-items-center flex-grow-1 border-0 bg-transparent">
                                 <h1 class="lead fw-normal mb-0 text-center" name="name">{{order['cliente']}}</h1>
                             </li>
+                            <input type="text" id="cant" name="cantidad"  style="border: 2px solid red" value="{{order['cantidad']}}" size="8">
                             <li class="list-group-item px-3 py-1 d-flex align-items-center flex-grow-1 border-0 bg-transparent">
-                                <h1 class="lead fw-normal mb-0 text-center" name="cantidad">{{order['cantidad']}}</h1>
+                                <h1 class="lead fw-normal mb-0 text-center" name="cantidad">{{order['fecha']}}</h1>
                             </li>
                             <li class=" list-group-item d-flex align-items-center ps-0 pe-3 py-1 rounded-0 border-0 bg-transparent">
                                 <div class="col-2">
@@ -68,6 +70,11 @@
                                         <img src="static/img/icons8-unchecked-checkbox-50.png" alt="">
                                     </a>
                                 </div>
+                            </li>
+                            <li class="list-group-item px-3 py-1 d-flex align-items-center flex-grow-1 border-0 bg-transparent">
+                                <a href="delete/{{order['id']}}">
+                                    <img src="static/img/icons8-trash-48.png" alt="">
+                                </a>
                             </li>
                         </ul>
                         {% endfor %}
@@ -85,6 +92,9 @@
                             </li>
                             <li class="list-group-item px-3 py-1 d-flex align-items-center flex-grow-1 border-0 bg-transparent">
                                 <h1 class="lead fw-normal mb-0 text-center" name="cantidad">{{order['cantidad']}}</h1>
+                            </li>
+                            <li class="list-group-item px-3 py-1 d-flex align-items-center flex-grow-1 border-0 bg-transparent">
+                                <h1 class="lead fw-normal mb-0 text-center" name="cantidad">{{order['fecha']}}</h1>
                             </li>
                             <li class=" list-group-item d-flex align-items-center ps-0 pe-3 py-1 rounded-0 border-0 bg-transparent">
                                 <div class="col-2">
