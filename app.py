@@ -3,6 +3,7 @@ import requests
 import firebase_admin
 from firebase_admin import credentials, firestore
 import datetime
+import os
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'AIzaSyDt7bNzrTYRLUghNhKoiJPIRdQXhZ5f5yE'
@@ -52,8 +53,10 @@ def create_order(ref, order, can):
 def update_check(ref, id):
     ref.document(id).update({'check': True})
 
+def update_check_false(ref, id):
+    ref.document(id).update({'check': False})
 
-def update_orden_cantidad(ref, id, cantidad):
+def update_orden_cant(ref, id, cantidad):
     ref.document(id).update({"cantidad": cantidad})
 
 
@@ -79,6 +82,7 @@ def home():
             completed = []
             incompleted = []
             clientes = repetidos(client(orders_ref))
+            clie = client(orders_ref)
             for order in orders:
                 print(order['check'])
 
@@ -91,7 +95,7 @@ def home():
             orders = []
         response = {'completed': completed,
                     'incompleted': incompleted,
-                    'clientes': clientes,
+                    'clientes': clie,
                     'counter1': len(completed),
                     'counter2': len(incompleted),
                     'counter3':len(clientes)}
@@ -116,15 +120,24 @@ def update(id):
     except:
         return render_template('error.html', response='response')
 
+@app.route("/updatefalse/<string:id>", methods=['GET'])
+def updatefalse(id):
+    print(f"\nVas a actualizar la tarea: {id}\n")
+    try:
+        update_check_false(orders_ref, id)
+        return redirect('/')
+    except:
+        return render_template('error.html', response='response')
+
 @app.route("/update-cant", methods=["POST"])
 def update_orden_cantidad():
     id = request.form["id"]
-    cantidad = request.form["cantidadModificada"]
+    cantidad = request.form["cantidad"]
     try:
-        update_orden_cantidad(users_ref, id, int(cantidad))
-        return Response(status=200)
+        update_orden_cant(orders_ref, id, int(cantidad))
+        return redirect('/')
     except:
-        return Response(status=400)
+        return redirect('error.html')
 
 @app.route("/delete/<string:id>", methods=['GET'])
 def delete(id):
@@ -138,5 +151,6 @@ def delete(id):
         return render_template('error.html', response='response')
 
 
+PORT = int(os.environ.get("PORT",8080))
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(threaded=True, host='0.0.0.0', port=PORT)
