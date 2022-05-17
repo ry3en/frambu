@@ -10,7 +10,7 @@
 
                         <p class="h1 text-center mt-3 mb-4 pb-3 text-primary">
                             <i class="fas fa-check-square me-1"></i>
-                            <u style="color: #EA5455;">Frambu</u>
+                            <u style="color: #EA5455;">🍓🍓Frambu🍓🍓</u>
                         </p>
 
                         <div class="pb-2">
@@ -18,7 +18,7 @@
                                 <div class="card-body">
 
                                     <form class="d-flex flex-row align-items-center" method="post">
-                                        <input type="text" id="name" name="name"
+                                        <input  type="text" id="name" name="name"
                                                class="form-control form-control-lg my-input"
                                                placeholder="Cliente">
                                         <input type="text" id="cantidad" name="cantidad"
@@ -51,18 +51,24 @@
                         <h4>Incompetas <span class="badge badge-info">{{response.counter2}}</span></h4>
 
                         {% for order in response.incompleted %}
+
                         <ul class="list-group list-group-horizontal rounded-0 bg-transparent">
-                            <li class="list-group-item d-flex align-items-center ps-0 pe-3 py-1 rounded-0 border-0 bg-transparent">
-                                <div class="form-check d-flex align-items-center">
-                                    <span class="badge badge-pill badge-secondary"> {{order['id']}}  </span>
-                                </div>
-                            </li>
                             <li class="list-group-item px-3 py-1 d-flex align-items-center flex-grow-1 border-0 bg-transparent">
                                 <h1 class="lead fw-normal mb-0 text-center" name="name">{{order['cliente']}}</h1>
                             </li>
-                            <input type="text" id="cant" name="cantidad"  style="border: 2px solid red" value="{{order['cantidad']}}" size="8">
                             <li class="list-group-item px-3 py-1 d-flex align-items-center flex-grow-1 border-0 bg-transparent">
-                                <h1 class="lead fw-normal mb-0 text-center" name="cantidad">{{order['fecha']}}</h1>
+                                <form class="d-flex flex-row align-items-center" method="post" action="/update-cant">
+                                    <input disabled type="text" class="form-control form-control-lg" id="id" name="id"
+                                           value="{{order['id']}}">
+                                    <input type="text" class="form-control form-control-lg" id="cant" name="cantidad"
+                                           value="{{order['cantidad']}}">
+
+                                    <input type="image" src="static/img/edit.png" alt="submit"/>
+                                </form>
+
+                            </li>
+                            <li class="list-group-item px-3 py-1 d-flex align-items-center flex-grow-1 border-0 bg-transparent">
+                                <h1 class="lead fw-normal mb-0 text-center" name="fecha">{{order['fecha']}}</h1>
                             </li>
                             <li class=" list-group-item d-flex align-items-center ps-0 pe-3 py-1 rounded-0 border-0 bg-transparent">
                                 <div class="col-2">
@@ -70,11 +76,6 @@
                                         <img src="static/img/icons8-unchecked-checkbox-50.png" alt="">
                                     </a>
                                 </div>
-                            </li>
-                            <li class="list-group-item px-3 py-1 d-flex align-items-center flex-grow-1 border-0 bg-transparent">
-                                <a href="delete/{{order['id']}}">
-                                    <img src="static/img/icons8-trash-48.png" alt="">
-                                </a>
                             </li>
                         </ul>
                         {% endfor %}
@@ -98,7 +99,7 @@
                             </li>
                             <li class=" list-group-item d-flex align-items-center ps-0 pe-3 py-1 rounded-0 border-0 bg-transparent">
                                 <div class="col-2">
-                                    <a href="update/{{order['id']}}">
+                                    <a href="updatefalse/{{order['id']}}">
                                         <img src="static/img/icons8-checked-checkbox-50.png" alt="">
                                     </a>
                                 </div>
